@@ -69,7 +69,7 @@ AFRAME.registerSystem('broadcast', {
 AFRAME.registerComponent('broadcast', {
   schema: {
     url: {type: 'string'},
-    send: {type: 'array'}
+    send: {type: 'array', default: ['position', 'rotation']}
   },
 
   init: function () {
