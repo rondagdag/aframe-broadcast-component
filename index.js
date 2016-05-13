@@ -20,21 +20,32 @@ AFRAME.registerSystem('broadcast', {
     this.socket.on('broadcast', function (data) {
       data.forEach(function syncState (entity) {
         var el = sceneEl.querySelector('#' + entity.id);
+
+        if (!el) {
+          var parentEl = sceneEl.querySelector('#' + entity.parentId) || sceneEl;
+          el = document.createElement('a-entity');
+          el.setAttribute('id', entity.id);
+          parentEl.appendChild(el);
+        }
+
         entity.components.forEach(function setAttribute (component) {
-          console.log(component[0], component[1]);
           el.setAttribute(component[0], component[1]);
         });
       });
     });
 
-    this.receiveHandlers = [];
     this.sendQueue = [];
   },
 
   addSend: function (el, sendComponents) {
+    if (!el.getAttribute('id')) {
+      el.setAttribute('id', guid());
+    }
+
     this.sendQueue.push(function send () {
       return {
         id: el.getAttribute('id'),
+        parentId: el.parentNode.getAttribute('id'),
         components: sendComponents.map(function getAttribute (componentName) {
           return [componentName, el.getComputedAttribute(componentName)];
         })
@@ -42,7 +53,10 @@ AFRAME.registerSystem('broadcast', {
     });
   },
 
-  tick: function () {
+  tick: function (time, dt) {
+    if (time - this.time < 10) { return; }
+    this.time = time;
+
     this.socket.emit('broadcast', this.sendQueue.map(function call (getSend) {
       return getSend();
     }));
@@ -55,7 +69,6 @@ AFRAME.registerSystem('broadcast', {
 AFRAME.registerComponent('broadcast', {
   schema: {
     url: {type: 'string'},
-    receive: {type: 'array'},
     send: {type: 'array'}
   },
 
@@ -64,8 +77,16 @@ AFRAME.registerComponent('broadcast', {
     var el = this.el;
     var system = this.system;
 
-    if (data.send.length) {
-      system.addSend(el, data.send);
-    }
+    if (!data.send.length) { return; }
+    system.addSend(el, data.send);
   }
 });
+
+function guid() {
+  var text = '';
+  var chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+  for (var i = 0; i < 5; i++) {
+    text += chars.charAt(Math.floor(Math.random() * chars.length));
+  }
+  return text;
+}
