@@ -1,0 +1,21 @@
+<html>
+  <head>
+    <title>A-Frame Broadcast Component - Basic</title>
+    <script src="../build.js"></script>
+  </head>
+  <body>
+    <a-scene broadcast="url: http://localhost:12000">
+      <a-entity id="player-1" camera look-controls wasd-controls
+                broadcast="send: position, rotation"
+                position="0 0 -5"></a-entity>
+
+      <a-entity id="player-2"
+                geometry="primitive: box" material="color: #C03546"
+                broadcast="receive: position, rotation" interpolation="100ms"></a-entity>
+
+      <a-sphere color="red" position="-3 0 2"></a-sphere>
+      <a-sphere color="yellow" position="3 1 -7"></a-sphere>
+      <a-sphere color="green" position="0 2 -3"></a-sphere>
+    </a-scene>
+  </body>
+</html>
