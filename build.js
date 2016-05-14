@@ -85,7 +85,7 @@ AFRAME.registerComponent('broadcast', {
     var el = this.el;
     var system = this.system;
 
-    if (!data.send.length) { return; }
+    if (el.isScene || !data.send.length) { return; }
     system.addSend(el, data.send);
   }
 });
