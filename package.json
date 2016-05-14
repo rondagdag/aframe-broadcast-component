@@ -41,6 +41,7 @@
     "webpack": "^1.12.9"
   },
   "dependencies": {
+    "aframe": "aframevr/aframe#793985",
     "socket.io": "^1.4.6",
     "socket.io-client": "^1.4.6"
   }
