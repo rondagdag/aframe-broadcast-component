@@ -1,5 +1,7 @@
 ## aframe-broadcast-component
 
+> Work in progress. Supports A-Frame 0.2.0.
+
 A component to send and consume entity data over WebSockets for simple
 multiuser [A-Frame](https://aframe.io).
 
