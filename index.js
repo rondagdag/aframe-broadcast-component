@@ -10,11 +10,17 @@ if (typeof AFRAME === 'undefined') {
 AFRAME.registerSystem('broadcast', {
   init: function () {
     var sceneEl = this.sceneEl;
-    var url = sceneEl.getAttribute('broadcast').url;
+    var url = AFRAME.utils.styleParser.parse(
+      HTMLElement.prototype.getAttribute.call(sceneEl, 'broadcast')
+    ).url;
     this.socket = io(url);
+
 
     this.socket.on('connect', function () {
       info('Connected', url);
+    });
+    this.socket.on('error', function () {
+      info('Error connecting to', url);
     });
 
     this.socket.on('broadcast', function (data) {
@@ -77,7 +83,7 @@ AFRAME.registerComponent('broadcast', {
     var el = this.el;
     var system = this.system;
 
-    if (!data.send.length) { return; }
+    if (el.isScene || !data.send.length) { return; }
     system.addSend(el, data.send);
   }
 });
