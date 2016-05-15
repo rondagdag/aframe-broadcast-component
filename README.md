@@ -16,6 +16,10 @@ When another client receives that data, it uses it to create an element with
 the ID if it doesn't exist, and then sync the component data to the entity with
 `setAttribute`.
 
+This is primarily used for simply seeing other users walk and look around in
+the same scene. It probably would not work well with game logic or physics.
+Needs more experimenting.
+
 ### Properties
 
 | Property | Description                                          | Default Value          |
@@ -27,11 +31,14 @@ the ID if it doesn't exist, and then sync the component data to the entity with
 
 #### Server
 
-There is a simple Node `socket.io` server in `server/`.
+There is a simple Node `socket.io` server in `server/`. It's about 10 LOC.
 
 ```
 PORT=12000 node index.js
 ```
+
+If you are serving the client over HTTPS, you will need SSL on your webserver.
+I just serve the client over HTTP and avoid that need.
 
 #### Browser Installation
 
