@@ -1,5 +1,5 @@
 {
-  "name": "webvr-multiuser-server",
+  "name": "aframe-broadcast-server",
   "version": "1.0.0",
   "description": "Simple multiuser server for WebVR that syncs position and rotation of entities via WebSockets.",
   "main": "index.js",
