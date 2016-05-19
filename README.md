@@ -2,6 +2,8 @@
 
 > Work in progress. Supports A-Frame 0.2.0.
 
+> Check out the successor to this component, the [A-Frame Firebase Component](https://github.com/ngokevin/aframe-firebase-component).
+
 A component to send and consume entity data over WebSockets for simple
 multiuser [A-Frame](https://aframe.io).
 
