@@ -10,7 +10,7 @@ if (typeof AFRAME === 'undefined') {
 AFRAME.registerSystem('broadcast', {
   init: function () {
     var sceneEl = this.sceneEl;
-    var url = sceneEl.getAttribute('broadcast').url;
+    var url = sceneEl.getAttribute('Broadcast').url;
     this.socket = io(url);
 
     this.socket.on('connect', function () {
