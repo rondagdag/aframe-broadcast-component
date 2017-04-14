@@ -1,6 +1,6 @@
 {
   "name": "aframe-broadcast-component",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Broadcast component for A-Frame.",
   "main": "index.js",
   "scripts": {
@@ -45,4 +45,5 @@
     "socket.io": "^1.4.6",
     "socket.io-client": "^1.4.6"
   }
+}
 
